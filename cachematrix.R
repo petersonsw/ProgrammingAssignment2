@@ -5,8 +5,14 @@
 ## These functions implement functionality to cache the calculation
 ## of a matrix inversion.
 ##
-## The function makeCacheMatrix creates an object that caches
+## makeCacheMatrix creates an object that caches
 ## a result.
+##
+##  x - is a numeric matrix
+##
+##  The return value is a list of functions that implement
+##  accessors for the data and the cache value.
+##
 makeCacheMatrix <- function(x = matrix()) {
     
     ## Private variable holding the cached value.
@@ -36,9 +42,15 @@ makeCacheMatrix <- function(x = matrix()) {
         getCacheValue = getCacheValue
     )
 }
-
-## The method cacheSolve computes the inverse of a
-## cacheMatrix.  It optimizes the calculation by pulling
+##
+## cacheSolve computes the inverse of a
+## cacheMatrix object.
+##
+##  x is a cacheMatrix object created with the method makeCacheMatrix
+##
+##  The return value is a matrix containing the computed inverse.
+##
+## Note: cacheSolve optimizes the calculation by pulling
 ## from a cached solution, only computing the inverse
 ## if the cached copy does not exist.
 cacheSolve <- function(x, ...) {
