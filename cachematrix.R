@@ -1,15 +1,61 @@
 ## Put comments here that give an overall description of what your
 ## functions do
 
-## Write a short comment describing this function
-
+## The function makeCacheMatrix creates an object that caches
+## a result.
 makeCacheMatrix <- function(x = matrix()) {
-
+    
+    ## Private variable holding the cached value.
+    cacheValue <- NULL
+    
+    ## Set accessor - set the source matrix
+    set <- function(y) {
+        x <<- y
+        cacheValue <<- NULL
+    }
+    
+    ## Get accessor - get the source matrix
+    get <- function() x
+    
+    ## Set accessor for the cached value
+    setCacheValue <- function(value) cacheValue <<- value
+    
+    ## Get accessor for the cached value
+    getCacheValue <- function() cacheValue
+    
+    ## Return a list that contains the functions implementing
+    ## the objects methods.
+    list(
+        set = set,
+        get = get,
+        setCacheValue = setCacheValue,
+        getCacheValue = getCacheValue
+    )
 }
 
-
-## Write a short comment describing this function
-
+## The method cacheSolve computes the inverse of a
+## matrix.  It optimizes the calculation by pulling
+## from a cached solution, only computing the inverse
+## if the cached copy does not exist.
 cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
+
+    ## Pull the result from the cache.
+    result <- x$getCacheValue()
+    
+    if (is.null(result))
+    {
+        ## if the cached value does not exist...
+        ##   1. Compute the inverse
+        ##   2. Cache the result for the next call
+        d <- x$get()
+        result <- solve(d, ...)
+        x$setCacheValue(result)
+    }
+    else
+    {
+        message("getting cached data")
+    }
+    
+    ## Return the result.
+    result
 }
