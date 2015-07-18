@@ -1,6 +1,10 @@
-## Put comments here that give an overall description of what your
-## functions do
-
+## R Programming - Assignment 2
+## Completed 2015-07-17
+## By Steven Peterson
+##
+## These functions implement functionality to cache the calculation
+## of a matrix inversion.
+##
 ## The function makeCacheMatrix creates an object that caches
 ## a result.
 makeCacheMatrix <- function(x = matrix()) {
@@ -34,7 +38,7 @@ makeCacheMatrix <- function(x = matrix()) {
 }
 
 ## The method cacheSolve computes the inverse of a
-## matrix.  It optimizes the calculation by pulling
+## cacheMatrix.  It optimizes the calculation by pulling
 ## from a cached solution, only computing the inverse
 ## if the cached copy does not exist.
 cacheSolve <- function(x, ...) {
